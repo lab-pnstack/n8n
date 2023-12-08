@@ -158,6 +158,16 @@ export class FacebookGraphApi implements INodeType {
 				required: true,
 			},
 			{
+				displayName: 'Cookie',
+				name: 'cookie',
+				type: 'string',
+				default: '',
+				description:
+					'The cookie of the person using the app. The cookie is returned from the <a href="https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus" target="_blank">FB.getLoginStatus</a> method.',
+				placeholder: 'cookie',
+				required: true,
+			},
+			{
 				displayName: 'Node',
 				name: 'node',
 				type: 'string',
@@ -312,6 +322,7 @@ export class FacebookGraphApi implements INodeType {
 			const node = this.getNodeParameter('node', itemIndex) as string;
 			const edge = this.getNodeParameter('edge', itemIndex) as string;
 			const options = this.getNodeParameter('options', itemIndex, {});
+			const cookie = this.getNodeParameter('cookie', itemIndex) as string;
 
 			if (graphApiVersion !== '') {
 				graphApiVersion += '/';
@@ -333,6 +344,7 @@ export class FacebookGraphApi implements INodeType {
 				qs: {
 					access_token: graphApiCredentials.accessToken,
 				},
+				cookie: cookie,
 				rejectUnauthorized: !this.getNodeParameter('allowUnauthorizedCerts', itemIndex, false),
 			};
 
